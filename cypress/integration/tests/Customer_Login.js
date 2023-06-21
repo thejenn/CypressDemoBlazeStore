@@ -24,10 +24,18 @@ describe('Customer Login Suite,', function() {
     })
 
     it('Unsuccessful Login - Username', function() {
+      cy.login_bad_username(this.data.username_bad, this.data.password)
+      cy.on('window:alert', (str) => {
+        expect(str).to.equal('User does not exist.')
+      })
 
     })
 
     it('Unsuccessful Login - Password', function() {
+      cy.login_bad_password(this.data.username, this.data.password_bad)
+      cy.on('window:alert', (str) => {
+        expect(str).to.equal('Wrong password.')
+      })
 
     })
 })

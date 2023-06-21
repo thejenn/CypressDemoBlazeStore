@@ -17,13 +17,43 @@ Cypress.Commands.add('loginSuccess', (username, password) => {
     cy.get('#login2').click()
 
     //improve this without wait
-
-    cy.wait(2000)
-    cy.get('#loginusername').type("Test_User_123")
-    cy.get('#loginpassword').type("Password123")
+    cy.wait(1000)
+    cy.get('#loginusername').type(username)
+    cy.get('#loginpassword').type(password)
     cy.get('button').contains('Log in').click()
 
 })
+
+Cypress.Commands.add('login_bad_username', (username_bad, password) => {
+    cy.visit("https://www.demoblaze.com/index.html")
+    cy.get('#login2').click()
+
+    //improve this without wait
+    cy.wait(1000)
+    cy.get('#loginusername').type(username_bad)
+    cy.get('#loginpassword').type(password)
+    cy.get('button').contains('Log in').click()
+})
+
+Cypress.Commands.add('login_bad_password', (username, password_bad) => {
+    cy.visit("https://www.demoblaze.com/index.html")
+    cy.get('#login2').click()
+
+    //improve this without wait
+    cy.wait(1000)
+    cy.get('#loginusername').type(username)
+    cy.get('#loginpassword').type(password_bad)
+    cy.get('button').contains('Log in').click()
+})
+
+Cypress.Commands.add("view_product", (productName) => {
+    cy.get('.card-block').each(($el, index, $list) => {
+        if ($el.text().includes(productName))
+        {
+            cy.get('a').contains(productName).click()
+        }          
+        })    
+    })
 
 //
 // -- This is a child command --
